@@ -1,6 +1,7 @@
 const validator = require('validator');
 
 const Pokemon = require('../models/pokemon');
+const {checkError} = require("../util/util");
 
 module.exports = {
   pokemons: async function({ page }, req) {
@@ -40,14 +41,8 @@ module.exports = {
     };
   },
   createPokemon: async function({ pokemonInput }) {
-    const errors = [];
-    if (validator.isEmpty(pokemonInput.name) || validator.isEmpty(pokemonInput.imgUrl || pokemonInput.pokemonTypes.length === 0)) {
-      errors.push({ message: 'Pokemon Input is invalid.' });
-    }
-
-    if (errors.length > 0) {
-      const error = new Error('Invalid input.');
-      error.data = errors;
+    if (checkError(pokemonInput)) {
+      const error = new Error('Pokemon Invalid input.');
       error.code = 422;
       throw error;
     }
@@ -78,28 +73,25 @@ module.exports = {
 
   },
   updatePokemon: async function({ id, pokemonInput }, req) {
-    const pokemon = await Pokemon.findById(id);
-    if (!pokemon) {
-      const error = new Error('No post found!');
+    const fetchedPokemon = await Pokemon.findById(id);
+    if (!fetchedPokemon) {
+      const error = new Error('No pokemon found!');
       error.code = 404;
       throw error;
     }
 
-    const errors = [];
-    if (validator.isEmpty(pokemonInput.captured)) {
-      errors.push({ message: 'Captured field is invalid.' });
-    }
-
-    if (errors.length > 0) {
-      const error = new Error('Invalid input.');
-      error.data = errors;
+    if (checkError(pokemonInput)) {
+      const error = new Error('Pokemon Invalid input.');
       error.code = 422;
       throw error;
     }
 
-    pokemon.captured = pokemonInput.captured;
+    fetchedPokemon.captured = pokemonInput.captured;
+    fetchedPokemon.name = pokemonInput.name;
+    fetchedPokemon.imgUrl = pokemonInput.imgUrl;
+    fetchedPokemon.pokemonTypes = pokemonInput.pokemonTypes;
 
-    const updatedPokemon = await pokemon.save();
+    const updatedPokemon = await fetchedPokemon.save();
     return {
       ...updatedPokemon._doc,
       _id: updatedPokemon._id.toString(),
