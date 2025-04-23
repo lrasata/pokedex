@@ -4,7 +4,6 @@ import {Grid} from "@mui/material";
 import PokemonCard, {IPokemonCard} from "../components/PokemonCard.tsx";
 
 const PokemonCardContainer = () => {
-
     const [pokemons, setPokemons] = useState<IPokemonCard[]>([]);
 
     useEffect(() => {
@@ -21,11 +20,18 @@ const PokemonCardContainer = () => {
     }, []);
 
     return <>
-        <Grid container spacing={2}>
+        <Grid container
+              spacing={2}
+              justifyContent="center"
+              display="flex"
+              flexGrow={1}
+              alignItems="stretch"
+              padding={2}
+              mb={5}>
             {
                 pokemons.map((pokemon) => (
-                    <Grid size={3}>
-                        <PokemonCard name={pokemon.name} imgUrl={pokemon.imgUrl} type={pokemon.type}/>
+                    <Grid size={{ xs:12, sm:6, md:3 }} key={pokemon.name}>
+                        <PokemonCard name={pokemon.name} imgUrl={pokemon.imgUrl} pokemonTypes={pokemon.pokemonTypes}/>
                     </Grid>
                 ))
             }

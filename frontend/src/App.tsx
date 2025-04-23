@@ -64,7 +64,7 @@ function App() {
 
   return (
       <ThemeProvider theme={theme}>
-          <Container maxWidth="xl">
+          <Container maxWidth="lg">
               <MainLayout />
           </Container>
       </ThemeProvider>

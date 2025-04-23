@@ -8,8 +8,10 @@ The purpose of this project is to serve as a training to get familiar with those
 In progress
 
 ### Ongoing improvements
-- [ ] Frontend - Main page layout to be done
-- [ ] Add functionality to capture a pokemon
+- [x] ~~Frontend - Main page layout to be done~~
+- [ ] Add functionality to capture a pokemon 
+- [ ] Add functionality to search a pokemon by name or by type
+- [ ] Make a change to keep pokemon id 
 - [ ] Add pagination component
 
 ## Backend
