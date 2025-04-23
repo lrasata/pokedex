@@ -1,34 +1,73 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {Container, createTheme, ThemeProvider} from "@mui/material";
+import '@fontsource/press-start-2p';
+import '@fontsource/montserrat';
+import MainLayout from "./components/MainLayout.tsx";
+
+const theme = createTheme({
+    palette: {
+        mode: 'light',
+        primary: {
+            main: '#FFCB05',
+        },
+        secondary: {
+            main: '#3B4CCA',
+        },
+        error: {
+            main: '#D62828',
+        },
+        success: {
+            main: '#3AA655',
+        },
+        info: {
+            main: '#30A7D7',
+        },
+        background: {
+            default: '#F2F2F2',
+            paper: '#FFFFFF',
+        },
+    },
+    typography: {
+        fontFamily: '"Montserrat", sans-serif',
+        h1: {
+            fontFamily: '"Press Start 2P", cursive',
+            fontSize: '2rem',
+            color: '#3B4CCA',
+        },
+        button: {
+            textTransform: 'none',
+            fontWeight: 600,
+        },
+    },
+    components: {
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    borderRadius: '20px',
+                    padding: '8px 16px',
+                    boxShadow: '0px 3px 6px rgba(0,0,0,0.1)',
+                },
+            },
+        },
+        MuiCard: {
+            styleOverrides: {
+                root: {
+                    borderRadius: '16px',
+                    boxShadow: '0px 5px 10px rgba(0,0,0,0.15)',
+                    background: '#FFF',
+                },
+            },
+        }
+    }
+});
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      <ThemeProvider theme={theme}>
+          <Container maxWidth="xl">
+              <MainLayout />
+          </Container>
+      </ThemeProvider>
   )
 }
 

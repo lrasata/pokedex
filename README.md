@@ -5,12 +5,12 @@ This project is a full-stack application built with `NodeJS, Express, MongoDB, M
 The purpose of this project is to serve as a training to get familiar with those technologies.
 
 ## Features
-
+In progress
 
 ### Ongoing improvements
-- [x] Backend : create - read - update - delete a pokemon
-- [ ] Frontend 
-
+- [ ] Frontend - Main page layout to be done
+- [ ] Add functionality to capture a pokemon
+- [ ] Add pagination component
 
 ## Backend
 
