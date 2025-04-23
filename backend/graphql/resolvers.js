@@ -4,16 +4,16 @@ const Pokemon = require('../models/pokemon');
 const {checkError} = require("../util/util");
 
 module.exports = {
-  pokemons: async function({ page }, req) {
+  getPokemons: async function({ page }) {
     if (!page) {
       page = 1;
     }
-    const perPage = 2;
+    const ITEM_PER_PAGE = 10;
     const totalPokemons = await Pokemon.find().countDocuments();
     const pokemons = await Pokemon.find()
       .sort({ createdAt: -1 })
-      .skip((page - 1) * perPage)
-      .limit(perPage);
+      .skip((page - 1) * ITEM_PER_PAGE)
+      .limit(ITEM_PER_PAGE);
     return {
       pokemons: pokemons.map(p => {
         return {
@@ -26,7 +26,7 @@ module.exports = {
       totalPokemons: totalPokemons
     };
   },
-  pokemon: async function({ id }) {
+  getPokemonById: async function({ id }) {
     const pokemon = await Pokemon.findById(id);
     if (!pokemon) {
       const error = new Error('No pokemon found!');

@@ -43,8 +43,8 @@ module.exports = buildSchema(`
     }
 
     type RootQuery {
-        pokemons(page: Int): PokemonData!
-        pokemon(id: ID!): Pokemon!
+        getPokemons(page: Int): PokemonData!
+        getPokemonById(id: ID!): Pokemon!
     }
 
     type RootMutation {
