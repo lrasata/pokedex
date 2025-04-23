@@ -23,7 +23,7 @@ module.exports = buildSchema(`
     }
     
     type Pokemon {
-      id: Int!
+      _id: String!
       name: String!
       captured: Boolean!
       imgUrl: String!

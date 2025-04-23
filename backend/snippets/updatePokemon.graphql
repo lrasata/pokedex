@@ -1,0 +1,16 @@
+mutation UpdatePokemon {
+    updatePokemon(
+        id: "6807714c23489a790f1e49b6"
+        pokemonInput: {
+            name: "Bulbasaur updated"
+            captured: true
+            imgUrl: "http://img.pokemondb.net/artwork/bulbasaur.jpg"
+            pokemonTypes: [Grass, Poison]
+        }
+    ) {
+        name
+        captured
+        imgUrl
+        pokemonTypes
+    }
+}

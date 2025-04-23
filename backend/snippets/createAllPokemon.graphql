@@ -1,0 +1,27 @@
+mutation CreateAllPokemon {
+    createAllPokemon(allPokemonInput: [
+        {
+            name: "Charmander"
+            captured: false
+            imgUrl: "http://img.pokemondb.net/artwork/charmander.jpg"
+            pokemonTypes: [Fire]
+        }
+        {
+            name: "Ivysaur"
+            captured: false
+            imgUrl: "http://img.pokemondb.net/artwork/ivysaur.jpg"
+            pokemonTypes: [Grass, Poison]
+        }
+        {
+            name: "Venusaur"
+            captured: false
+            imgUrl: "http://img.pokemondb.net/artwork/venusaur.jpg"
+            pokemonTypes: [Grass, Poison]
+        }
+    ]) {
+        captured
+        imgUrl
+        pokemonTypes
+        name
+    }
+}
