@@ -99,4 +99,16 @@ module.exports = {
       updatedAt: updatedPokemon.updatedAt.toISOString()
     };
   },
+  deletePokemon: async function({ id }) {
+    const fetchedPokemon = await Pokemon.findById(id);
+    if (!fetchedPokemon) {
+      const error = new Error('No pokemon found!');
+      error.code = 404;
+      throw error;
+    }
+
+    await Pokemon.findByIdAndDelete(id);
+    return true;
+  }
+
 };

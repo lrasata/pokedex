@@ -8,7 +8,8 @@ The purpose of this project is to serve as a training to get familiar with those
 
 
 ### Ongoing improvements
-- [ ] 
+- [x] Backend : create - read - update - delete a pokemon
+- [ ] Frontend 
 
 
 ## Backend
