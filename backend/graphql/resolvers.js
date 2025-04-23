@@ -39,9 +39,9 @@ module.exports = {
       updatedAt: pokemon.updatedAt.toISOString()
     };
   },
-  createPokemon: async function({pokemonInput }) {
+  createPokemon: async function({ pokemonInput }) {
     const errors = [];
-    if (validator.isEmpty(pokemonInput.name) || validator.isEmpty(pokemonInput.imgUrl)) {
+    if (validator.isEmpty(pokemonInput.name) || validator.isEmpty(pokemonInput.imgUrl || pokemonInput.pokemonTypes.length === 0)) {
       errors.push({ message: 'Pokemon Input is invalid.' });
     }
 
@@ -66,6 +66,16 @@ module.exports = {
       createdAt: createdPokemon.createdAt.toISOString(),
       updatedAt: createdPokemon.updatedAt.toISOString()
     };
+  },
+  createAllPokemon: async function({ allPokemonInput }) {
+
+    const normalizedInput = allPokemonInput.map(p => Object.assign({}, p));
+    const allPokemonSaved = await Promise.all(
+        normalizedInput.map(pokemonInput => this.createPokemon({ pokemonInput }))
+    );
+
+    return allPokemonSaved;
+
   },
   updatePokemon: async function({ id, pokemonInput }, req) {
     const pokemon = await Pokemon.findById(id);

@@ -48,8 +48,9 @@ module.exports = buildSchema(`
     }
 
     type RootMutation {
-        updatePokemon(id: ID!, pokemonInput: PokemonInputData): Pokemon!
-        createPokemon(pokemonInput: PokemonInputData): Pokemon!
+        updatePokemon(id: ID!, pokemonInput: PokemonInputData!): Pokemon!
+        createPokemon(pokemonInput: PokemonInputData!): Pokemon!
+        createAllPokemon(allPokemonInput: [PokemonInputData!]!): [Pokemon!]!
     }
 
     schema {
