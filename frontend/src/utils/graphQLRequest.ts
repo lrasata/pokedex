@@ -1,21 +1,5 @@
 import {API_BACKEND_URL} from "../constants/constants.ts";
 
-export const GET_POKEMONS_QUERY = `
-  query GetPokemons {
-    getPokemons(page: 1) {
-        totalPokemons
-        pokemons {
-            _id
-            name
-            captured
-            imgUrl
-            pokemonTypes
-            idNumber
-        }
-    }
-}
-`;
-
 export async function graphQLRequest(query: string, variables?: Record<string, any>) {
     const response = await fetch(`${API_BACKEND_URL}/graphql`, {
         method: 'POST',

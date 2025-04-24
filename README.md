@@ -10,7 +10,8 @@ In progress
 ### Ongoing improvements
 - [x] ~~Frontend - Main page layout to be done~~
 - [x] ~~Add functionality to capture a pokemon~~
-- [ ] Add functionality to search a pokemon by name or by type
+- [x] ~~Add functionality to search a pokemon by name~~
+- [ ] Add functionality to search by pokemon type
 - [x] ~~Make a change to keep pokemon ~~id~~ Number not id, or idNumber~~
 - [ ] Add pagination component
 

@@ -3,18 +3,18 @@ import {graphQLRequest, GET_POKEMONS_QUERY} from "../utils/graphQLRequest.ts";
 import {Grid} from "@mui/material";
 import PokemonCard, {IPokemon} from "../components/PokemonCard.tsx";
 import {updatePokemon} from "../utils/updatePokemon.tsx";
+import SearchBar from "../components/SearchBar.tsx";
+import {fetchPokemons} from "../utils/fetchPokemons.tsx";
 
 const PokemonCardContainer = () => {
     const [pokemons, setPokemons] = useState<IPokemon[]>([]);
 
+    const [inputSearch, setInputSearch] = useState<string>('');
+
     useEffect(() => {
         async function loadData() {
-            try {
-                const data = await graphQLRequest(GET_POKEMONS_QUERY, {});
-                setPokemons(data.getPokemons.pokemons);
-            } catch (err) {
-                console.error('Error fetching Pokémon:', err);
-            }
+            const data = await fetchPokemons({});
+            setPokemons(data);
         }
 
         loadData();
@@ -30,7 +30,14 @@ const PokemonCardContainer = () => {
         }
     }
 
+    const handleInputSearch = async (searchText: string) => {
+        setInputSearch(searchText);
+        const data = await fetchPokemons({name: searchText});
+        setPokemons(data);
+    }
+
     return <>
+        <SearchBar inputSearchText={inputSearch} handleSearch={handleInputSearch} />
         <Grid container
               spacing={4}
               justifyContent="center"

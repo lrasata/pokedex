@@ -1,16 +1,20 @@
-const validator = require('validator');
-
 const Pokemon = require('../models/pokemon');
 const {checkError} = require("../util/util");
 
 module.exports = {
-  getPokemons: async function({ page }) {
+  getPokemons: async function({ page, name }) {
     if (!page) {
       page = 1;
     }
     const ITEM_PER_PAGE = 20;
-    const totalPokemons = await Pokemon.find().countDocuments();
-    const pokemons = await Pokemon.find()
+
+    const filter = {};
+    if (name) {
+      filter.name = { $regex: name, $options: 'i' }; // case-insensitive match
+    }
+
+    const totalPokemons = await Pokemon.find(filter).countDocuments();
+    const pokemons = await Pokemon.find(filter)
       .sort({ createdAt: -1 })
       .skip((page - 1) * ITEM_PER_PAGE)
       .limit(ITEM_PER_PAGE);
