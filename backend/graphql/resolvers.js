@@ -8,7 +8,7 @@ module.exports = {
     if (!page) {
       page = 1;
     }
-    const ITEM_PER_PAGE = 10;
+    const ITEM_PER_PAGE = 20;
     const totalPokemons = await Pokemon.find().countDocuments();
     const pokemons = await Pokemon.find()
       .sort({ createdAt: -1 })
@@ -73,7 +73,7 @@ module.exports = {
     return allPokemonSaved;
 
   },
-  updatePokemon: async function({ id, pokemonInput }, req) {
+  updatePokemon: async function({ id, pokemonInput }) {
     const existingPokemon = await Pokemon.findById(id);
     if (!existingPokemon) {
       const error = new Error('No pokemon found!');

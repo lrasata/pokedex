@@ -1,14 +1,27 @@
 import {Box, Card, CardContent, CardMedia, Chip, Typography} from "@mui/material";
 import {POKEMON_TYPE_COLOURS} from "../constants/constants.ts";
+import CaptureChip from "./CaptureChip.tsx";
 
-export interface IPokemonCard {
+export interface IPokemon {
+    _id: string;
     name: string;
     pokemonTypes: string[];
     imgUrl: string;
     idNumber: string;
+    captured: boolean;
 }
 
-const PokemonCard = ({name, idNumber, pokemonTypes, imgUrl}: IPokemonCard) => {
+interface Props {
+    pokemon: IPokemon;
+    handleOnCapture: (pokemon: IPokemon) => void;
+}
+
+const PokemonCard = ({pokemon, handleOnCapture}: Props) => {
+
+    const onClickCapture = () => {
+        handleOnCapture({...pokemon, captured: !pokemon.captured});
+    }
+
     return (
         <Card
             sx={{
@@ -23,13 +36,14 @@ const PokemonCard = ({name, idNumber, pokemonTypes, imgUrl}: IPokemonCard) => {
                     flexGrow: 1,
                     display: "flex",
                     alignItems: "center",
-                    justifyContent: "center"
+                    justifyContent: "center",
+                    padding: 1,
                 }}
             >
                 <CardMedia
                     component="img"
-                    image={imgUrl}
-                    alt={name}
+                    image={pokemon.imgUrl}
+                    alt={pokemon.name}
                     sx={{
                         maxHeight: 200,
                         width: "auto",
@@ -46,23 +60,24 @@ const PokemonCard = ({name, idNumber, pokemonTypes, imgUrl}: IPokemonCard) => {
                     paddingY: 2,
                 }}
             >
-                <Typography variant="body2" gutterBottom>{`#${idNumber}`}</Typography>
+                <Typography variant="body2" gutterBottom>{`#${pokemon.idNumber}`}</Typography>
                 <Typography
                     variant="h5"
                     component="p"
                     gutterBottom
                 >
-                    {name}
+                    {pokemon.name}
                 </Typography>
-                <Box>
+                <Box mb={2}>
                     {
-                        pokemonTypes.length > 0 && (
-                            pokemonTypes.map((type, index) => (
-                                <Chip key={`${name}-${type}-${index}`} label={type} variant="outlined" sx={{ backgroundColor: POKEMON_TYPE_COLOURS.get(type), mr: 1}}/>
+                        pokemon.pokemonTypes.length > 0 && (
+                            pokemon.pokemonTypes.map((type, index) => (
+                                <Chip size="small" key={`${pokemon.name}-${type}-${index}`} label={type} sx={{ backgroundColor: POKEMON_TYPE_COLOURS.get(type), mr: 1}}/>
                             ))
                         )
                     }
                 </Box>
+                <CaptureChip captured={pokemon.captured} onClick={onClickCapture} />
 
             </CardContent>
         </Card>
