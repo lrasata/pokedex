@@ -2,10 +2,11 @@
 > Project under construction
 
 This project is a full-stack application built with `NodeJS, Express, MongoDB, Mongoose, GraphQL and React`.
-The purpose of this project is to serve as a training to get familiar with those technologies.
+The purpose of this project is to serve as a practice to get familiar with `GraühQL`.
 
 ## Features
-In progress
+### User can view all pokemon cards and search by name
+<img src="./docs/pokedex.png" alt="pokedex" height="500"><img src="./docs/mobile-pokedex.png" alt="mobile pokedex" height="500">
 
 ### Ongoing improvements
 - [x] ~~Frontend - Main page layout to be done~~
@@ -47,6 +48,10 @@ To Start Server:
 Server is running on PORT:
 
 `http://localhost:8080/`
+
+### Usage
+TODO
+
 
 ## Frontend
 
