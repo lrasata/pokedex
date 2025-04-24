@@ -5,9 +5,10 @@ export interface IPokemonCard {
     name: string;
     pokemonTypes: string[];
     imgUrl: string;
+    idNumber: string;
 }
 
-const PokemonCard = ({name, pokemonTypes, imgUrl}: IPokemonCard) => {
+const PokemonCard = ({name, idNumber, pokemonTypes, imgUrl}: IPokemonCard) => {
     return (
         <Card
             sx={{
@@ -45,6 +46,7 @@ const PokemonCard = ({name, pokemonTypes, imgUrl}: IPokemonCard) => {
                     paddingY: 2,
                 }}
             >
+                <Typography variant="body2" gutterBottom>{`#${idNumber}`}</Typography>
                 <Typography
                     variant="h5"
                     component="p"

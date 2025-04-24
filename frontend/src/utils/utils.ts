@@ -10,6 +10,7 @@ export const GET_POKEMONS_QUERY = `
             captured
             imgUrl
             pokemonTypes
+            idNumber
         }
     }
 }

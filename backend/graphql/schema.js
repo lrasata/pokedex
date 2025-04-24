@@ -27,6 +27,7 @@ module.exports = buildSchema(`
       name: String!
       captured: Boolean!
       imgUrl: String!
+      idNumber: String!
       pokemonTypes: [PokemonType!]!
     }
     
@@ -39,6 +40,7 @@ module.exports = buildSchema(`
       name: String!
       captured: Boolean!
       imgUrl: String!
+      idNumber: String!
       pokemonTypes: [PokemonType!]!
     }
 

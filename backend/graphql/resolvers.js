@@ -50,6 +50,7 @@ module.exports = {
     const pokemon = new Pokemon({
       name: pokemonInput.name,
       imgUrl: pokemonInput.imgUrl,
+      idNumber: pokemonInput.idNumber,
       captured: pokemonInput.captured,
       pokemonTypes: pokemonInput.pokemonTypes,
     });
@@ -73,8 +74,8 @@ module.exports = {
 
   },
   updatePokemon: async function({ id, pokemonInput }, req) {
-    const fetchedPokemon = await Pokemon.findById(id);
-    if (!fetchedPokemon) {
+    const existingPokemon = await Pokemon.findById(id);
+    if (!existingPokemon) {
       const error = new Error('No pokemon found!');
       error.code = 404;
       throw error;
@@ -86,12 +87,13 @@ module.exports = {
       throw error;
     }
 
-    fetchedPokemon.captured = pokemonInput.captured;
-    fetchedPokemon.name = pokemonInput.name;
-    fetchedPokemon.imgUrl = pokemonInput.imgUrl;
-    fetchedPokemon.pokemonTypes = pokemonInput.pokemonTypes;
+    existingPokemon.captured = pokemonInput.captured;
+    existingPokemon.name = pokemonInput.name;
+    existingPokemon.imgUrl = pokemonInput.imgUrl;
+    existingPokemon.idNumber = pokemonInput.idNumber;
+    existingPokemon.pokemonTypes = pokemonInput.pokemonTypes;
 
-    const updatedPokemon = await fetchedPokemon.save();
+    const updatedPokemon = await existingPokemon.save();
     return {
       ...updatedPokemon._doc,
       _id: updatedPokemon._id.toString(),

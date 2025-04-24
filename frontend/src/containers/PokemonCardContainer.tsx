@@ -31,7 +31,7 @@ const PokemonCardContainer = () => {
             {
                 pokemons.map((pokemon) => (
                     <Grid size={{ xs:12, sm:6, md:3 }} key={pokemon.name}>
-                        <PokemonCard name={pokemon.name} imgUrl={pokemon.imgUrl} pokemonTypes={pokemon.pokemonTypes}/>
+                        <PokemonCard {...pokemon}/>
                     </Grid>
                 ))
             }
