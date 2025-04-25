@@ -6,7 +6,7 @@ module.exports = {
     if (!page) {
       page = 1;
     }
-    const ITEM_PER_PAGE = 20;
+    const ITEM_PER_PAGE = 9;
 
     const filter = {};
     if (name) {
@@ -21,7 +21,7 @@ module.exports = {
 
     const totalPokemons = await Pokemon.find(filter).countDocuments();
     const pokemons = await Pokemon.find(filter)
-      .sort({ createdAt: -1 })
+      .sort({ idNumber: 1 })
       .skip((page - 1) * ITEM_PER_PAGE)
       .limit(ITEM_PER_PAGE);
     return {

@@ -140,6 +140,146 @@ mutation CreateAllPokemon {
             imgUrl: "http://img.pokemondb.net/artwork/raticate.jpg"
             pokemonTypes: [Normal]
         }
+        {
+            idNumber: "0021"
+            name: "Spearow"
+            captured: false
+            imgUrl: "http://img.pokemondb.net/artwork/spearow.jpg"
+            pokemonTypes: [Normal, Flying]
+        }
+        {
+            idNumber: "0022"
+            name: "Fearow"
+            captured: false
+            imgUrl: "http://img.pokemondb.net/artwork/fearow.jpg"
+            pokemonTypes: [Normal, Flying]
+        }
+        {
+            idNumber: "0023"
+            name: "Ekans"
+            captured: false
+            imgUrl: "http://img.pokemondb.net/artwork/ekans.jpg"
+            pokemonTypes: [Poison]
+        }
+        {
+            idNumber: "0024"
+            name: "Arbok"
+            captured: false
+            imgUrl: "http://img.pokemondb.net/artwork/arbok.jpg"
+            pokemonTypes: [Poison]
+        }
+        {
+            idNumber: "0025"
+            name: "Pikachu"
+            captured: false
+            imgUrl: "http://img.pokemondb.net/artwork/pikachu.jpg"
+            pokemonTypes: [Electric]
+        }
+        {
+            idNumber: "0026"
+            name: "Raichu"
+            captured: false
+            imgUrl: "http://img.pokemondb.net/artwork/raichu.jpg"
+            pokemonTypes: [Electric]
+        }
+        {
+            idNumber: "0027"
+            name: "Sandshrew"
+            captured: false
+            imgUrl: "http://img.pokemondb.net/artwork/sandshrew.jpg"
+            pokemonTypes: [Ground]
+        }
+        {
+            idNumber: "0028"
+            name: "Sandslash"
+            captured: false
+            imgUrl: "http://img.pokemondb.net/artwork/sandslash.jpg"
+            pokemonTypes: [Ground]
+        }
+        {
+            idNumber: "0029"
+            name: "Nidoran♀"
+            captured: false
+            imgUrl: "http://img.pokemondb.net/artwork/nidoran-f.jpg"
+            pokemonTypes: [Poison]
+        }
+        {
+            idNumber: "0030"
+            name: "Nidorina"
+            captured: false
+            imgUrl: "http://img.pokemondb.net/artwork/nidorina.jpg"
+            pokemonTypes: [Poison]
+        }
+        {
+            idNumber: "0031"
+            name: "Nidoqueen"
+            captured: false
+            imgUrl: "http://img.pokemondb.net/artwork/nidoqueen.jpg"
+            pokemonTypes: [Poison, Ground]
+        }
+        {
+            idNumber: "0032"
+            name: "Nidoran♂"
+            captured: false
+            imgUrl: "http://img.pokemondb.net/artwork/nidoran-m.jpg"
+            pokemonTypes: [Poison]
+        }
+        {
+            idNumber: "0033"
+            name: "Nidorino"
+            captured: false
+            imgUrl: "http://img.pokemondb.net/artwork/nidorino.jpg"
+            pokemonTypes: [Poison]
+        }
+        {
+            idNumber: "0034"
+            name: "Nidoking"
+            captured: false
+            imgUrl: "http://img.pokemondb.net/artwork/nidoking.jpg"
+            pokemonTypes: [Poison, Ground]
+        }
+        {
+            idNumber: "0035"
+            name: "Clefairy"
+            captured: false
+            imgUrl: "http://img.pokemondb.net/artwork/clefairy.jpg"
+            pokemonTypes: [Fairy]
+        }
+        {
+            idNumber: "0036"
+            name: "Clefable"
+            captured: false
+            imgUrl: "http://img.pokemondb.net/artwork/clefable.jpg"
+            pokemonTypes: [Fairy]
+        }
+        {
+            idNumber: "0037"
+            name: "Vulpix"
+            captured: false
+            imgUrl: "http://img.pokemondb.net/artwork/vulpix.jpg"
+            pokemonTypes: [Fire]
+        }
+        {
+            idNumber: "0038"
+            name: "Ninetales"
+            captured: false
+            imgUrl: "http://img.pokemondb.net/artwork/ninetales.jpg"
+            pokemonTypes: [Fire]
+        }
+        {
+            idNumber: "0039"
+            name: "Jigglypuff"
+            captured: false
+            imgUrl: "http://img.pokemondb.net/artwork/jigglypuff.jpg"
+            pokemonTypes: [Normal, Fairy]
+        }
+        {
+            idNumber: "0040"
+            name: "Wigglytuff"
+            captured: false
+            imgUrl: "http://img.pokemondb.net/artwork/wigglytuff.jpg"
+            pokemonTypes: [Normal, Fairy]
+        }
     ]) {
         _id
         captured

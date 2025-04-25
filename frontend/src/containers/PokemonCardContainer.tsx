@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Box, Grid, Typography} from "@mui/material";
+import {Box, Button, Grid, Typography, useMediaQuery, useTheme} from "@mui/material";
 import PokemonCard, {IPokemon} from "../components/PokemonCard.tsx";
 import {updatePokemon} from "../utils/updatePokemon.tsx";
 import SearchBar from "../components/SearchBar.tsx";
@@ -8,12 +8,16 @@ import MultipleSelect from "../components/MultipleSelect.tsx";
 import {POKEMON_TYPE_COLOURS} from "../constants/constants.ts";
 
 const PokemonCardContainer = () => {
+    const theme = useTheme();
+    const isMobile =  useMediaQuery(theme.breakpoints.down("sm"));
+
     const [pokemons, setPokemons] = useState<IPokemon[]>([]);
     const [total, setTotal] = useState<number>(0);
     const [resultMessage, setResultMessage] = useState<string>("");
 
     const [inputSearch, setInputSearch] = useState<string>('');
     const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+    const [currentPage, setCurrentPage] = useState<number>(1);
 
     useEffect(() => {
         async function loadData() {
@@ -31,10 +35,10 @@ const PokemonCardContainer = () => {
         }else if (total === 1){
             setResultMessage(`Showing 1 result`)
         } else {
-            setResultMessage(`Showing ${total} results`)
+            setResultMessage(`Showing ${pokemons.length} results out of ${total}`)
         }
 
-    }, [total]);
+    }, [pokemons]);
 
     const handleOnCapturePokemon = async (pokemonInput: IPokemon) => {
         const updatedPokemon = await updatePokemon(pokemonInput);
@@ -91,6 +95,14 @@ const PokemonCardContainer = () => {
 
     }, [selectedOptions]);
 
+    const handleOnLoadMore = async () => {
+        const {pokemons, totalPokemons} = await fetchPokemons({ page: currentPage + 1});
+
+        setCurrentPage( prevState => prevState + 1);
+        setPokemons(prevState => [...prevState, ...pokemons]);
+        setTotal(totalPokemons)
+    }
+
     return <>
         <Grid container spacing={2} width={"100%"}>
             <Grid size={{ xs: 12, md: 8 }}>
@@ -113,16 +125,19 @@ const PokemonCardContainer = () => {
               alignItems="stretch"
               padding={2}
               width={"100%"}
-              mb={5}>
+              mb={3}>
             {
-                pokemons.map((pokemon) => (
-                    <Grid size={{ xs:12, sm:6, md:4 }} key={pokemon.name}>
+                pokemons.map((pokemon, index) => (
+                    <Grid size={{ xs:12, sm:6, md:4 }} key={`${pokemon._id}-${pokemon.name}-${index}`}>
                         <PokemonCard pokemon={pokemon} handleOnCapture={handleOnCapturePokemon}/>
                     </Grid>
                 ))
             }
-
         </Grid>
+        {
+            pokemons.length < total  && <Button variant="contained" fullWidth={isMobile} onClick={handleOnLoadMore}>Load more</Button>
+        }
+
     </>
 }
 
