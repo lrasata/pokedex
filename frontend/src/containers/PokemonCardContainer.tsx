@@ -1,6 +1,5 @@
 import {useEffect, useState} from "react";
-import {graphQLRequest, GET_POKEMONS_QUERY} from "../utils/graphQLRequest.ts";
-import {Grid} from "@mui/material";
+import {Box, Grid, Typography} from "@mui/material";
 import PokemonCard, {IPokemon} from "../components/PokemonCard.tsx";
 import {updatePokemon} from "../utils/updatePokemon.tsx";
 import SearchBar from "../components/SearchBar.tsx";
@@ -8,17 +7,31 @@ import {fetchPokemons} from "../utils/fetchPokemons.tsx";
 
 const PokemonCardContainer = () => {
     const [pokemons, setPokemons] = useState<IPokemon[]>([]);
+    const [total, setTotal] = useState<number>(0);
+    const [resultMessage, setResultMessage] = useState<string>("");
 
     const [inputSearch, setInputSearch] = useState<string>('');
 
     useEffect(() => {
         async function loadData() {
-            const data = await fetchPokemons({});
-            setPokemons(data);
+            const { pokemons, totalPokemons} = await fetchPokemons({});
+            setPokemons(pokemons);
+            setTotal(totalPokemons)
         }
 
         loadData();
     }, []);
+
+    useEffect(() => {
+        if (total === 0) {
+            setResultMessage('No result for this search')
+        }else if (total === 1){
+            setResultMessage(`Showing 1 result`)
+        } else {
+            setResultMessage(`Showing ${total} results`)
+        }
+
+    }, [total]);
 
     const handleOnCapturePokemon = async (pokemonInput: IPokemon) => {
         const updatedPokemon = await updatePokemon(pokemonInput);
@@ -32,12 +45,20 @@ const PokemonCardContainer = () => {
 
     const handleInputSearch = async (searchText: string) => {
         setInputSearch(searchText);
-        const data = await fetchPokemons({name: searchText});
-        setPokemons(data);
+
+        const cleanedSearchText = searchText.replace(/^#/,'');
+        const hasOnlyDigits = /^\d+$/.test(cleanedSearchText);
+        const { pokemons, totalPokemons} = await fetchPokemons(hasOnlyDigits ? {idNumber: cleanedSearchText} : {name: cleanedSearchText});
+        setPokemons(pokemons);
+        setTotal(totalPokemons);
     }
 
     return <>
         <SearchBar inputSearchText={inputSearch} handleSearch={handleInputSearch} />
+        <Box my={2}>
+            <Typography variant="subtitle1" color="textPrimary" component="p">{resultMessage}</Typography>
+        </Box>
+
         <Grid container
               spacing={4}
               justifyContent="center"

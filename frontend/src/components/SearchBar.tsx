@@ -23,12 +23,12 @@ const SearchBar = ({inputSearchText, handleSearch}: SearchBarProps) => {
     }
 
     const handleOnClickSearch = () => {
-        handleSearch(inputValue);
+        handleSearch(inputValue.trim());
     };
 
     const handleOnKeyDown = (event: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         if (event.key === "Enter") {
-            handleSearch(inputValue);
+            handleSearch(inputValue.trim());
         }
     }
 
@@ -61,7 +61,7 @@ const SearchBar = ({inputSearchText, handleSearch}: SearchBarProps) => {
                 </IconButton>
             </InputAdornment>
         }
-        placeholder="Enter a name..."
+        placeholder="Enter a name or a number..."
         ref={inputRef}
         autoFocus={false}
         onKeyDown={(event) => handleOnKeyDown(event)}

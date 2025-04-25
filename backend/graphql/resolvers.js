@@ -2,7 +2,7 @@ const Pokemon = require('../models/pokemon');
 const {checkError} = require("../util/util");
 
 module.exports = {
-  getPokemons: async function({ page, name }) {
+  getPokemons: async function({ page, name, idNumber }) {
     if (!page) {
       page = 1;
     }
@@ -11,6 +11,9 @@ module.exports = {
     const filter = {};
     if (name) {
       filter.name = { $regex: name, $options: 'i' }; // case-insensitive match
+    }
+    if (idNumber) {
+      filter.idNumber = { $regex: idNumber };
     }
 
     const totalPokemons = await Pokemon.find(filter).countDocuments();

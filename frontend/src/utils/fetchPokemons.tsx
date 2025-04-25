@@ -1,8 +1,8 @@
 import {graphQLRequest} from "./graphQLRequest.ts";
 
 export const GET_POKEMONS_QUERY = `
-  query GetPokemons($page: Int, $name: String) {
-    getPokemons(page: $page, name: $name) {
+  query GetPokemons($page: Int, $name: String, $idNumber: String) {
+    getPokemons(page: $page, name: $name, idNumber: $idNumber) {
       totalPokemons
       pokemons {
         _id
@@ -16,14 +16,15 @@ export const GET_POKEMONS_QUERY = `
   }
 `;
 
-export async function fetchPokemons({ page, name }: { page?: number; name?: string }) {
+export async function fetchPokemons({ page, name, idNumber }: { page?: number; name?: string; idNumber?: string }) {
     try {
         const variables = {
             ...(page !== undefined && { page }),
-            ...(name !== undefined && { name })
+            ...(name !== undefined && { name }),
+            ...(idNumber !== undefined && { idNumber })
         }
         const data = await graphQLRequest(GET_POKEMONS_QUERY, variables);
-        return data.getPokemons.pokemons;
+        return data.getPokemons;
     } catch (err) {
         console.error('Error fetching Pokémon:', err);
     }

@@ -45,7 +45,7 @@ module.exports = buildSchema(`
     }
 
     type RootQuery {
-        getPokemons(page: Int, name: String): PokemonResult!
+        getPokemons(page: Int, name: String, idNumber: String): PokemonResult!
         getPokemonById(id: ID!): Pokemon!
     }
 

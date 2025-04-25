@@ -1,8 +1,8 @@
 # Pokedex 
 > Project under construction
 
-This project is a full-stack application built with `NodeJS, Express, MongoDB, Mongoose, GraphQL and React`.
-The purpose of this project is to serve as a practice to get familiar with `GraühQL`.
+This project is a **full-stack application** built with `NodeJS, Express, MongoDB, Mongoose, GraphQL, React and Mui`.
+The purpose of this project is to serve as a practice to get familiar with `GraphQL`.
 
 ## Features
 ### User can view all pokemon cards and search by name
