@@ -1,19 +1,17 @@
-# Pokedex 
+# Pokedex
 > Project under construction
 
 This project is a **full-stack application** built with `NodeJS, Express, MongoDB, Mongoose, GraphQL, React and Mui`.
 The purpose of this project is to serve as a practice to get familiar with `GraphQL`.
 
 ## Features
-### User can view all pokemon cards and search by name
+### User can view all pokemon cards
 <img src="./docs/pokedex.png" alt="pokedex" height="500"><img src="./docs/mobile-pokedex.png" alt="mobile pokedex" height="500">
 
+### User can search pokemons by name, number or type
+<img src="./docs/pokedex-filter.png" alt="pokedex" height="500">
+
 ### Ongoing improvements
-- [x] ~~Frontend - Main page layout to be done~~
-- [x] ~~Add functionality to capture a pokemon~~
-- [x] ~~Add functionality to search a pokemon by name~~
-- [x] ~~Add functionality to search by pokemon type~~
-- [x] ~~Make a change to keep pokemon ~~id~~ Number not id, or idNumber~~
 - [ ] Add pagination component
 
 ## Backend
