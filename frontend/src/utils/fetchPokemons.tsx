@@ -1,8 +1,8 @@
 import {graphQLRequest} from "./graphQLRequest.ts";
 
 export const GET_POKEMONS_QUERY = `
-  query GetPokemons($page: Int, $name: String, $idNumber: String) {
-    getPokemons(page: $page, name: $name, idNumber: $idNumber) {
+  query GetPokemons($page: Int, $name: String, $idNumber: String, $pokemonTypes: [String]) {
+    getPokemons(page: $page, name: $name, idNumber: $idNumber, pokemonTypes: $pokemonTypes) {
       totalPokemons
       pokemons {
         _id
@@ -16,12 +16,13 @@ export const GET_POKEMONS_QUERY = `
   }
 `;
 
-export async function fetchPokemons({ page, name, idNumber }: { page?: number; name?: string; idNumber?: string }) {
+export async function fetchPokemons({ page, name, idNumber, pokemonTypes }: { page?: number; name?: string; idNumber?: string; pokemonTypes?: string[] }) {
     try {
         const variables = {
             ...(page !== undefined && { page }),
             ...(name !== undefined && { name }),
-            ...(idNumber !== undefined && { idNumber })
+            ...(idNumber !== undefined && { idNumber }),
+            ...pokemonTypes !== undefined && { pokemonTypes },
         }
         const data = await graphQLRequest(GET_POKEMONS_QUERY, variables);
         return data.getPokemons;

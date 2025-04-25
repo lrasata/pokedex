@@ -4,6 +4,8 @@ import PokemonCard, {IPokemon} from "../components/PokemonCard.tsx";
 import {updatePokemon} from "../utils/updatePokemon.tsx";
 import SearchBar from "../components/SearchBar.tsx";
 import {fetchPokemons} from "../utils/fetchPokemons.tsx";
+import MultipleSelect from "../components/MultipleSelect.tsx";
+import {POKEMON_TYPE_COLOURS} from "../constants/constants.ts";
 
 const PokemonCardContainer = () => {
     const [pokemons, setPokemons] = useState<IPokemon[]>([]);
@@ -11,6 +13,7 @@ const PokemonCardContainer = () => {
     const [resultMessage, setResultMessage] = useState<string>("");
 
     const [inputSearch, setInputSearch] = useState<string>('');
+    const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
     useEffect(() => {
         async function loadData() {
@@ -44,19 +47,62 @@ const PokemonCardContainer = () => {
     }
 
     const handleInputSearch = async (searchText: string) => {
-        setInputSearch(searchText);
-
         const cleanedSearchText = searchText.replace(/^#/,'');
+        setInputSearch(cleanedSearchText);
+
         const hasOnlyDigits = /^\d+$/.test(cleanedSearchText);
-        const { pokemons, totalPokemons} = await fetchPokemons(hasOnlyDigits ? {idNumber: cleanedSearchText} : {name: cleanedSearchText});
+        let filters = hasOnlyDigits ? {idNumber: cleanedSearchText} : {name: cleanedSearchText};
+
+        const hasSelectedTypes = selectedOptions.length > 0;
+        // @ts-ignore
+        filters = hasSelectedTypes ? {...filters, pokemonTypes: selectedOptions} : {...filters}
+
+        const { pokemons, totalPokemons} = await fetchPokemons(filters);
         setPokemons(pokemons);
         setTotal(totalPokemons);
     }
 
+    const handleOnSelectType = async () => {
+        let filters = {};
+        const hasSearch = inputSearch.trim() !== '';
+        const hasOnlyDigits = /^\d+$/.test(inputSearch);
+
+        if (selectedOptions.length > 0) {
+            filters = { pokemonTypes : selectedOptions }
+        }
+
+        if (hasSearch) {
+            if (hasOnlyDigits) {
+                filters = {...filters, idNumber: inputSearch};
+            } else {
+                filters = {...filters, name: inputSearch};
+            }
+        }
+
+        const response = await fetchPokemons(filters);
+        const { pokemons, totalPokemons } = response;
+
+        setPokemons(pokemons);
+        setTotal(totalPokemons);
+    }
+
+    useEffect(() => {
+        handleOnSelectType();
+
+    }, [selectedOptions]);
+
     return <>
-        <SearchBar inputSearchText={inputSearch} handleSearch={handleInputSearch} />
-        <Box my={2}>
-            <Typography variant="subtitle1" color="textPrimary" component="p">{resultMessage}</Typography>
+        <Grid container spacing={2} width={"100%"}>
+            <Grid size={{ xs: 12, md: 8 }}>
+                <SearchBar inputSearchText={inputSearch} handleSearch={handleInputSearch} />
+            </Grid>
+            <Grid size={{ xs: 12, md: 4 }}>
+                <MultipleSelect options={Array.from(POKEMON_TYPE_COLOURS.keys())} selectedOptions={selectedOptions} setSelectedOptions={setSelectedOptions} />
+            </Grid>
+        </Grid>
+
+        <Box my={2} width="100%">
+            <Typography variant="subtitle1" color="textPrimary" component="p" textAlign="left">{resultMessage}</Typography>
         </Box>
 
         <Grid container

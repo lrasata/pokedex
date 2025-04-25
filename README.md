@@ -12,7 +12,7 @@ The purpose of this project is to serve as a practice to get familiar with `Grap
 - [x] ~~Frontend - Main page layout to be done~~
 - [x] ~~Add functionality to capture a pokemon~~
 - [x] ~~Add functionality to search a pokemon by name~~
-- [ ] Add functionality to search by pokemon type
+- [x] ~~Add functionality to search by pokemon type~~
 - [x] ~~Make a change to keep pokemon ~~id~~ Number not id, or idNumber~~
 - [ ] Add pagination component
 
