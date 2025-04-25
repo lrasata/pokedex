@@ -1,5 +1,4 @@
 # Pokedex
-> Project under construction
 
 This project is a **full-stack application** built with `NodeJS, Express, MongoDB, Mongoose, GraphQL, React and Mui`.
 The purpose of this project is to serve as a practice to get familiar with `GraphQL`.
@@ -9,15 +8,13 @@ The purpose of this project is to serve as a practice to get familiar with `Grap
 <img src="./docs/pokedex.png" alt="pokedex" height="500"><img src="./docs/mobile-pokedex.png" alt="mobile pokedex" height="500">
 
 ### User can search pokemons by name, number or type
-<img src="./docs/pokedex-filter.png" alt="pokedex" height="500">
-
-### Ongoing improvements
-- [ ] Add pagination component
+<img src="./docs/pokedex-filter.png" alt="pokedex filter" height="500">
 
 ## Backend
 
 ### Prerequisites
-Provide in the `.env` the MongoDB uri and a JWT secret for JWT generation
+Provide in the `.env` the MongoDB URI and a JWT secret for JWT generation.
+> In this MongoDB Atlas was used
 
 ```
 MONGO_URI=
@@ -47,9 +44,14 @@ Server is running on PORT:
 
 `http://localhost:8080/`
 
-### Usage
-TODO
+## Usage - Populate the MongoDB database
+Run the `graphql` statement in `backend/snippets/createAllPokemon.graphql` to populate your mongodb database with data.
 
+As an example, you can use `Postman`
+
+<img src="./docs/postman.png" alt="postamn example" height="300">
+
+> Please note that the example of data provided in `backend/snippets/createAllPokemon.graphql` is definitely not exhaustive. As the purpose of this project is only to practice GraphQL.
 
 ## Frontend
 

@@ -1,1 +1,1 @@
-# NodeJS + Express + Mongoose + MongoDB + GraphQL
+# Backend built with NodeJS + Express + Mongoose + MongoDB + GraphQL

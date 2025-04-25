@@ -1,1 +1,1 @@
-# React + TypeScript + Vite
+# Frontend built with React + TypeScript + Vite + Mui
