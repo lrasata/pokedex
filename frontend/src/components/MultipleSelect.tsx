@@ -23,6 +23,7 @@ interface Props {
     setSelectedOptions: (values: string[]) => void;
 }
 
+// Source : https://mui.com/material-ui/react-select/#multiple-select
 export default function MultipleSelect({ options, selectedOptions = [],  setSelectedOptions } : Props) {
 
     const handleChange = (event: SelectChangeEvent<typeof selectedOptions>) => {
