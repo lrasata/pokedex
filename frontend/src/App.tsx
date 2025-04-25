@@ -30,7 +30,10 @@ const theme = createTheme({
         fontFamily: '"Montserrat", sans-serif',
         h1: {
             fontFamily: '"Press Start 2P", cursive',
-            fontSize: '2rem',
+            fontSize: '1.5rem',
+            '@media (min-width:960px)': {
+                fontSize: '2rem', // md and up
+            },
             color: '#3B4CCA',
         },
         button: {
