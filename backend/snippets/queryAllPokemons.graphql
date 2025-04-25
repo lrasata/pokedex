@@ -1,0 +1,12 @@
+query GetPokemons {
+    getPokemons(page: 1) {
+        totalPokemons
+        pokemons {
+            _id
+            name
+            captured
+            imgUrl
+            pokemonTypes
+        }
+    }
+}

@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/lrasata/pokedex.git"
   },
-  "license": "ISC",
+  "license": "MIT",
   "author": "lrasata",
   "type": "commonjs",
   "main": "index.js",

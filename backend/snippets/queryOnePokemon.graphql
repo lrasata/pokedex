@@ -1,0 +1,9 @@
+query Pokemon {
+    pokemon(id: "6808ce7b0cb2cccf3bbff157") {
+        _id
+        name
+        captured
+        imgUrl
+        pokemonTypes
+    }
+}

@@ -1,0 +1,17 @@
+mutation CreatePokemon {
+    createPokemon(
+        pokemonInput: {
+            name: "Bulbasaur"
+            captured: false
+            imgUrl: "http://img.pokemondb.net/artwork/bulbasaur.jpg"
+            pokemonTypes: [Grass, Poison]
+            idNumber: "0001"
+        }
+    ) {
+        name
+        captured
+        imgUrl
+        pokemonTypes
+        idNumber
+    }
+}

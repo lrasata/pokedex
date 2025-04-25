@@ -23,14 +23,15 @@ module.exports = buildSchema(`
     }
     
     type Pokemon {
-      id: Int!
+      _id: String!
       name: String!
       captured: Boolean!
       imgUrl: String!
+      idNumber: String!
       pokemonTypes: [PokemonType!]!
     }
     
-    type PokemonData {
+    type PokemonResult {
         pokemons: [Pokemon!]!
         totalPokemons: Int!
     }
@@ -39,17 +40,20 @@ module.exports = buildSchema(`
       name: String!
       captured: Boolean!
       imgUrl: String!
+      idNumber: String!
       pokemonTypes: [PokemonType!]!
     }
 
     type RootQuery {
-        pokemons(page: Int): PokemonData!
-        pokemon(id: ID!): Pokemon!
+        getPokemons(page: Int, name: String, idNumber: String, pokemonTypes: [String]): PokemonResult!
+        getPokemonById(id: ID!): Pokemon!
     }
 
     type RootMutation {
-        updatePokemon(id: ID!, pokemonInput: PokemonInputData): Pokemon!
-        createPokemon(pokemonInput: PokemonInputData): Pokemon!
+        updatePokemon(id: ID!, pokemonInput: PokemonInputData!): Pokemon!
+        createPokemon(pokemonInput: PokemonInputData!): Pokemon!
+        createAllPokemon(allPokemonInput: [PokemonInputData!]!): [Pokemon!]!
+        deletePokemon(id: ID!): Boolean
     }
 
     schema {

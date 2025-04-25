@@ -1,7 +1,9 @@
 {
   "name": "pokedex-frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "lrasata",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,6 +12,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@fontsource/montserrat": "^5.2.5",
+    "@fontsource/press-start-2p": "^5.2.5",
+    "@mui/icons-material": "^7.0.2",
+    "@mui/material": "^7.0.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

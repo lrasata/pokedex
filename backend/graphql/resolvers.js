@@ -1,18 +1,29 @@
-const validator = require('validator');
-
 const Pokemon = require('../models/pokemon');
+const {checkError} = require("../util/util");
 
 module.exports = {
-  pokemons: async function({ page }, req) {
+  getPokemons: async function({ page, name, idNumber, pokemonTypes }) {
     if (!page) {
       page = 1;
     }
-    const perPage = 2;
-    const totalPokemons = await Pokemon.find().countDocuments();
-    const pokemons = await Pokemon.find()
-      .sort({ createdAt: -1 })
-      .skip((page - 1) * perPage)
-      .limit(perPage);
+    const ITEM_PER_PAGE = 9;
+
+    const filter = {};
+    if (name) {
+      filter.name = { $regex: name, $options: 'i' }; // case-insensitive match
+    }
+    if (idNumber) {
+      filter.idNumber = { $regex: idNumber };
+    }
+    if (pokemonTypes && pokemonTypes.length > 0) {
+      filter.pokemonTypes = { $in: pokemonTypes }; // match any types
+    }
+
+    const totalPokemons = await Pokemon.find(filter).countDocuments();
+    const pokemons = await Pokemon.find(filter)
+      .sort({ idNumber: 1 })
+      .skip((page - 1) * ITEM_PER_PAGE)
+      .limit(ITEM_PER_PAGE);
     return {
       pokemons: pokemons.map(p => {
         return {
@@ -25,7 +36,7 @@ module.exports = {
       totalPokemons: totalPokemons
     };
   },
-  pokemon: async function({ id }) {
+  getPokemonById: async function({ id }) {
     const pokemon = await Pokemon.findById(id);
     if (!pokemon) {
       const error = new Error('No pokemon found!');
@@ -39,15 +50,9 @@ module.exports = {
       updatedAt: pokemon.updatedAt.toISOString()
     };
   },
-  createPokemon: async function({pokemonInput }) {
-    const errors = [];
-    if (validator.isEmpty(pokemonInput.name) || validator.isEmpty(pokemonInput.imgUrl)) {
-      errors.push({ message: 'Pokemon Input is invalid.' });
-    }
-
-    if (errors.length > 0) {
-      const error = new Error('Invalid input.');
-      error.data = errors;
+  createPokemon: async function({ pokemonInput }) {
+    if (checkError(pokemonInput)) {
+      const error = new Error('Pokemon Invalid input.');
       error.code = 422;
       throw error;
     }
@@ -55,6 +60,7 @@ module.exports = {
     const pokemon = new Pokemon({
       name: pokemonInput.name,
       imgUrl: pokemonInput.imgUrl,
+      idNumber: pokemonInput.idNumber,
       captured: pokemonInput.captured,
       pokemonTypes: pokemonInput.pokemonTypes,
     });
@@ -67,29 +73,37 @@ module.exports = {
       updatedAt: createdPokemon.updatedAt.toISOString()
     };
   },
-  updatePokemon: async function({ id, pokemonInput }, req) {
-    const pokemon = await Pokemon.findById(id);
-    if (!pokemon) {
-      const error = new Error('No post found!');
+  createAllPokemon: async function({ allPokemonInput }) {
+
+    const normalizedInput = allPokemonInput.map(p => Object.assign({}, p));
+    const allPokemonSaved = await Promise.all(
+        normalizedInput.map(pokemonInput => this.createPokemon({ pokemonInput }))
+    );
+
+    return allPokemonSaved;
+
+  },
+  updatePokemon: async function({ id, pokemonInput }) {
+    const existingPokemon = await Pokemon.findById(id);
+    if (!existingPokemon) {
+      const error = new Error('No pokemon found!');
       error.code = 404;
       throw error;
     }
 
-    const errors = [];
-    if (validator.isEmpty(pokemonInput.captured)) {
-      errors.push({ message: 'Captured field is invalid.' });
-    }
-
-    if (errors.length > 0) {
-      const error = new Error('Invalid input.');
-      error.data = errors;
+    if (checkError(pokemonInput)) {
+      const error = new Error('Pokemon Invalid input.');
       error.code = 422;
       throw error;
     }
 
-    pokemon.captured = pokemonInput.captured;
+    existingPokemon.captured = pokemonInput.captured;
+    existingPokemon.name = pokemonInput.name;
+    existingPokemon.imgUrl = pokemonInput.imgUrl;
+    existingPokemon.idNumber = pokemonInput.idNumber;
+    existingPokemon.pokemonTypes = pokemonInput.pokemonTypes;
 
-    const updatedPokemon = await pokemon.save();
+    const updatedPokemon = await existingPokemon.save();
     return {
       ...updatedPokemon._doc,
       _id: updatedPokemon._id.toString(),
@@ -97,4 +111,16 @@ module.exports = {
       updatedAt: updatedPokemon.updatedAt.toISOString()
     };
   },
+  deletePokemon: async function({ id }) {
+    const fetchedPokemon = await Pokemon.findById(id);
+    if (!fetchedPokemon) {
+      const error = new Error('No pokemon found!');
+      error.code = 404;
+      throw error;
+    }
+
+    await Pokemon.findByIdAndDelete(id);
+    return true;
+  }
+
 };

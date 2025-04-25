@@ -12,7 +12,7 @@ const graphqlResolver = require('./graphql/resolvers');
 const app = express();
 app.use(cors({
     origin: [process.env.ALLOWED_ORIGIN],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["POST"],
     credentials: false,
 }));
 app.use(express.json());
@@ -21,7 +21,7 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', process.env.ALLOWED_ORIGIN);
     res.setHeader(
         'Access-Control-Allow-Methods',
-        'OPTIONS, GET, POST, PUT, PATCH, DELETE'
+        'OPTIONS, POST'
     );
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     if (req.method === 'OPTIONS') {

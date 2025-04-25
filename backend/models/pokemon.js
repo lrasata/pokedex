@@ -15,6 +15,10 @@ const pokemonSchema = new Schema(
             type: String,
             required: true
         },
+        idNumber: {
+            type: String,
+            required: true
+        },
         pokemonTypes: {
             type: [String],
             required: true
