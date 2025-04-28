@@ -39,10 +39,10 @@ export default function MultipleSelect({ options, selectedOptions = [],  setSele
     return (
         <div>
             <FormControl sx={{ width: '100%' }}>
-                <InputLabel id="demo-multiple-checkbox-label">Select a type</InputLabel>
+                <InputLabel id="multiple-checkbox-label">Select a type</InputLabel>
                 <Select
-                    labelId="demo-multiple-checkbox-label"
-                    id="demo-multiple-checkbox"
+                    labelId="multiple-checkbox-label"
+                    id="multiple-checkbox"
                     multiple
                     value={selectedOptions}
                     onChange={handleChange}

@@ -48,13 +48,14 @@ const SearchBar = ({inputSearchText, handleSearch}: SearchBarProps) => {
     }, [debouncedInputValue]);
 
     return <OutlinedInput
+        id="search-bar"
         value={inputValue}
         fullWidth
         onChange={handleInputChange}
         endAdornment={
             <InputAdornment position="end">
                 {
-                    inputValue !== '' && <IconButton onClick={handleClearInput}><Close/></IconButton>
+                    inputValue !== '' && <IconButton onClick={handleClearInput} id="clear-input-button"><Close/></IconButton>
                 }
                 <IconButton onClick={handleOnClickSearch}>
                     <Search />
