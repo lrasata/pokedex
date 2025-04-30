@@ -1,4 +1,4 @@
-import {Box, Card, CardContent, CardMedia, Chip, Typography} from "@mui/material";
+import {Box, Card, CardContent, CardMedia, Chip, Typography, CardMediaProps} from "@mui/material";
 import {POKEMON_TYPE_COLOURS} from "../constants/constants.ts";
 import CaptureChip from "./CaptureChip.tsx";
 import { styled } from '@mui/material/styles';
@@ -42,7 +42,12 @@ const StyledCardContent = styled(CardContent)(({theme}) => ({
     paddingBottom: theme.spacing(2),
 }))
 
-const StyledCardMedia = styled(CardMedia)`
+interface StyledCardMediaProps extends CardMediaProps {
+    component?: React.ElementType; // Add `component` prop to allow dynamic element change
+    alt?: string;
+}
+
+const StyledCardMedia = styled(CardMedia)<StyledCardMediaProps>`
     max-height: 200px;
     width: auto;
     max-width: 100%;
