@@ -1,6 +1,7 @@
 import {Box, Card, CardContent, CardMedia, Chip, Typography} from "@mui/material";
 import {POKEMON_TYPE_COLOURS} from "../constants/constants.ts";
 import CaptureChip from "./CaptureChip.tsx";
+import { styled } from '@mui/material/styles';
 
 export interface IPokemon {
     _id: string;
@@ -16,6 +17,37 @@ interface Props {
     handleOnCapture: (pokemon: IPokemon) => void;
 }
 
+const StyledCard = styled(Card)`
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+`;
+
+const StyledBox = styled(Box)(({theme}) => (
+    {
+        flexGrow: 1,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: theme.spacing(1),
+    }
+));
+
+const StyledCardContent = styled(CardContent)(({theme}) => ({
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+}))
+
+const StyledCardMedia = styled(CardMedia)`
+    max-height: 200px;
+    width: auto;
+    max-width: 100%;
+`;
+
 const PokemonCard = ({pokemon, handleOnCapture}: Props) => {
 
     const onClickCapture = () => {
@@ -23,43 +55,16 @@ const PokemonCard = ({pokemon, handleOnCapture}: Props) => {
     }
 
     return (
-        <Card
-            sx={{
-                height: "100%",
-                display: "flex",
-                flexDirection: "column",
-                border: "2px solid black"
-            }}
-        >
-            <Box
-                sx={{
-                    flexGrow: 1,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: 1,
-                }}
-            >
-                <CardMedia
+        <StyledCard>
+            <StyledBox>
+                <StyledCardMedia
                     component="img"
                     image={pokemon.imgUrl}
                     alt={pokemon.name}
-                    sx={{
-                        maxHeight: 200,
-                        width: "auto",
-                        maxWidth: "100%"
-                    }}
                 />
-            </Box>
+            </StyledBox>
 
-            <CardContent
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    paddingY: 2,
-                }}
-            >
+            <StyledCardContent>
                 <Typography variant="body2" gutterBottom>{`#${pokemon.idNumber}`}</Typography>
                 <Typography
                     variant="h5"
@@ -79,8 +84,8 @@ const PokemonCard = ({pokemon, handleOnCapture}: Props) => {
                 </Box>
                 <CaptureChip captured={pokemon.captured} onClick={onClickCapture} />
 
-            </CardContent>
-        </Card>
+            </StyledCardContent>
+        </StyledCard>
     );
 };
 

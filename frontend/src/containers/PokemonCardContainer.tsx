@@ -123,7 +123,6 @@ const PokemonCardContainer = () => {
               display="flex"
               flexGrow={1}
               alignItems="stretch"
-              padding={2}
               width={"100%"}
               mb={3}>
             {

@@ -84,6 +84,10 @@ To Visit App:
 
 `http://localhost:5173/`
 
+To run testcafe test:
+
+`npm run test`
+
 ### Acknowledgement
 This project took strong inspiration from the following resources :
 - https://github.com/dgraph-io/graphql-sample-apps/tree/master/pokedex
